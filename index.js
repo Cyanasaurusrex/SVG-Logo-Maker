@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const colorCheck = require('./lib/more/colorCheck.js')
+const shapes = require('./lib/shapes.js')
 
 const questions = [
     {
@@ -16,7 +17,7 @@ const questions = [
       },
       {
         type: 'input',
-        message: 'Please enter a text color or hexadecimal#:',
+        message: 'Please enter a text color or hexadecimal:',
         name: 'textColor',
         validate: (answer) => {
           if(colorCheck.colorCheck(answer) == false){
@@ -37,28 +38,26 @@ const questions = [
         name: 'logoColor',
         validate: (answer) => {
           if(colorCheck.colorCheck(answer) == false){
-            return 'Please enter a valid text color or hexadecimal#'
-          }
+            return 'Please enter a valid text color or hexadecimal'
+          }          
           return true
-        }
-        
-      },
-      
+        }        
+      },      
 ]
 
-// function writeToFile(response) {
-//     content =  ''   
-//     fs.writeFile('logo.svg', content, function(error) {
-//         if (error) throw error;
-//             console.log('Problem generating logo, try again.')
-//     })
-// }
+function writeToFile(response) {
+    text = shapes.GenerateSVG(response)
+    fs.writeFile('logo.svg', text, function(error) {
+        if (error) throw error;
+            console.log('Problem generating logo, try again.')
+    })
+}
 
 function init() {
     inquirer
     .prompt(questions)
     .then((response) => {
-        console.log(response)
+        writeToFile(response)
     }) 
 }
 
