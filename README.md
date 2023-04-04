@@ -32,6 +32,10 @@ these modules are required for the application to execute properly.
 ## Usage
 When all the necessary modules have been installed, open the terminal in the 'develop' folder and run the following command:  The user will then be prompted for the properties they would like for their logo.  A message stating 'Generated logo.svg' will appear when the logo has been generated. The generated file can be found in the main folder.
 
+The following link shows a walkthrough video:
+
+[link to walkthrough video](https://youtu.be/HHHV4om4uuA)
+
 ## Contributing
 none
 
