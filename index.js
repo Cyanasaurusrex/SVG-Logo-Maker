@@ -1,8 +1,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const colorCheck = require('./lib/more/colorCheck.js')
-const shapes = require('./lib/shapes.js')
-
+const circle = require('./lib/circle.js')
+const triangle = require('./lib/triangle.js')
+const square = require('./lib/square.js')
 const questions = [
     {
         type: 'input',
@@ -45,19 +46,41 @@ const questions = [
       },      
 ]
 
-function writeToFile(response) {
-    text = shapes.GenerateSVG(response)
-    fs.writeFile('logo.svg', text, function(error) {
-        if (error) throw error;
-            console.log('Problem generating logo, try again.')
-    })
+
+function shapeType(response) {
+    if (response.logoShape === 'circle'){
+      console.log('circle')
+      let userLogo = new circle(response.logoColor, response.letters, response.textColor)
+      return userLogo
+    }
+    if (response.logoShape === 'triangle'){
+      console.log('triangle')
+      let userLogo = new triangle(response.logoColor, response.letters, response.textColor)
+      return userLogo
+    }
+    if (response.logoShape === 'square'){
+      console.log('square')
+      let  userLogo = new square(response.logoColor, response.letters, response.textColor)
+      return userLogo
+    }
+}
+
+function writeFile(response) {
+  let selectedShape = shapeType(response)  
+  fs.writeFile('logo.svg', selectedShape.generateSVG(), function(error) {
+      if (error) {
+          console.log('Problem generating logo, try again.', error)
+      } else {
+        console.log('Generated logo.svg')
+      }
+  })    
 }
 
 function init() {
     inquirer
     .prompt(questions)
     .then((response) => {
-        writeToFile(response)
+        writeFile(response)
     }) 
 }
 
