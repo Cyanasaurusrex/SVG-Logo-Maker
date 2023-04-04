@@ -49,17 +49,14 @@ const questions = [
 
 function shapeType(response) {
     if (response.logoShape === 'circle'){
-      console.log('circle')
       let userLogo = new circle(response.logoColor, response.letters, response.textColor)
       return userLogo
     }
     if (response.logoShape === 'triangle'){
-      console.log('triangle')
       let userLogo = new triangle(response.logoColor, response.letters, response.textColor)
       return userLogo
     }
     if (response.logoShape === 'square'){
-      console.log('square')
       let  userLogo = new square(response.logoColor, response.letters, response.textColor)
       return userLogo
     }
